@@ -1,24 +1,42 @@
 <div class="container body-content">
   <div class="jumbotron">
     <h1>BrainWare Orders</h1>
-    <p class="lead">This is the BrainWare orders page! Welcome</p>
+    <p class="lead">This is the BrainWare orders page. Welcome!</p>
   </div>
-  <div class="row">
-    <div class="col-md-12">
-      <h2>Your Orders</h2>
-      <div id="orders"></div>
-    </div>
-  </div>
-  <ul>
-    <li *ngFor="let order of orders">
-      {{order.description}} (Total: {{ order.orderTotal | currency }})
-      <ul>
-        <li *ngFor="let orderProduct of order.orderProducts">
-          {{orderProduct.product.name}} ({{orderProduct.quantity}} &#64; {{ orderProduct.price | currency }}/ea)
-        </li>
-      </ul>
-    </li>
-  </ul>
+  <table class="table">
+    <caption><h2>Your Orders</h2></caption>
+    <tbody>
+      <tr *ngFor="let order of orders">
+        <table class="table table-striped table-hover">
+          <caption><h3>{{order.description}}</h3></caption>
+          <thead class="table-dark">
+            <tr>
+              <th>Product</th>
+              <th>Quantity</th>
+              <th>Unit Price</th>
+              <th>Total</th>
+            </tr>    
+          </thead>
+          <tbody>
+            <tr *ngFor="let orderProduct of order.orderProducts">
+              <td>{{ orderProduct.product.name }}</td>
+              <td>{{ orderProduct.quantity }}</td>
+              <td>{{ orderProduct.price | currency }}</td>
+              <td>{{ orderProduct.quantity * orderProduct.price | currency }}</td>
+            </tr>
+          </tbody>
+          <tfoot>
+            <tr>
+              <td></td>
+              <td></td>
+              <td></td>
+              <td class="total" aria-label="Order Total">{{ order.orderTotal | currency }}</td>
+            </tr>
+          </tfoot>
+        </table>
+      </tr>
+    </tbody>
+  </table>
   <hr />
   <footer>
     <p>&copy; {{year}} - BrainWare, Inc</p>
