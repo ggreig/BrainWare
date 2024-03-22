@@ -13,7 +13,7 @@
         public void GetOrders_ShouldSucceed()
         {
             // Arrange
-            var orderController = new OrderController(new OrderService());
+            var orderController = new OrderController(new OrderService(new Database()));
 
             // Act
             IEnumerable<Order> result = orderController.GetOrders();

@@ -3,7 +3,7 @@
     using System.Data.Common;
     using System.Data.SqlClient;
 
-    public class Database
+    public class Database : IDatabase
     {
         private readonly SqlConnection _connection;
 

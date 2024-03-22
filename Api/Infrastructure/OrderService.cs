@@ -4,11 +4,11 @@
     using System.Data;
     using System.Data.Common;
 
-    public class OrderService : IOrderService
+    public class OrderService(IDatabase inDatabase) : IOrderService
     {
         public List<Order> GetOrdersForCompany(int CompanyId)
         {
-            var database = new Database();
+            var database = inDatabase;
 
             // Get the orders
             string sql1 =
