@@ -10,7 +10,7 @@
     public class OrderControllerTests
     {
         [Test]
-        public void GetOrders_ShouldSucceed()
+        public void GetOrders_ShouldContainExpectedNumber()
         {
             // Arrange
             var database = new Database();
