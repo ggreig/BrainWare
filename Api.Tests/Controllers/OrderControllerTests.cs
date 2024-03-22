@@ -13,7 +13,9 @@
         public void GetOrders_ShouldSucceed()
         {
             // Arrange
-            var orderController = new OrderController(new OrderService(new Database()));
+            var database = new Database();
+            var orderService = new OrderService(database);
+            var orderController = new OrderController(orderService);
 
             // Act
             IEnumerable<Order> result = orderController.GetOrders();
