@@ -8,6 +8,9 @@
     {
         public List<Order> GetOrdersForCompany(int CompanyId)
         {
+            // BUG: Not using the CompanyId provided as a parameter.
+            // TODO: Convert to use parameterised stored procedure(s) to avoid SQL injection
+            
             // Get the orders
             string sql1 =
                 "SELECT c.name, o.description, o.order_id FROM company c INNER JOIN [order] o on c.company_id=o.company_id";
