@@ -1,3 +1,5 @@
+using FluentAssertions;
+
 namespace Api.Tests
 {
     public class UnitTests
@@ -10,7 +12,7 @@ namespace Api.Tests
         [Test]
         public void Test1()
         {
-            Assert.Pass();
+            true.Should().BeTrue();
         }
     }
 }
