@@ -4,12 +4,10 @@
     using System.Data;
     using System.Data.Common;
 
-    public class OrderService(IDatabase inDatabase) : IOrderService
+    public class OrderService(IDatabase database) : IOrderService
     {
         public List<Order> GetOrdersForCompany(int CompanyId)
         {
-            var database = inDatabase;
-
             // Get the orders
             string sql1 =
                 "SELECT c.name, o.description, o.order_id FROM company c INNER JOIN [order] o on c.company_id=o.company_id";
