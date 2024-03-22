@@ -1,7 +1,7 @@
-using FluentAssertions;
-
 namespace Api.Tests
 {
+    using FluentAssertions;
+
     public class UnitTests
     {
         [SetUp]

@@ -10,8 +10,9 @@
         public Database()
         {
             // var connectionString = "Data Source=LOCALHOST;Initial Catalog=BrainWare;Integrated Security=SSPI";
-            var mdf = @"C:\repos\BrainWare\Api\data\BrainWare.mdf";
-            var connectionString = $"Data Source=(LocalDb)\\MSSQLLocalDB;Initial Catalog=BrainWAre;Integrated Security=SSPI;AttachDBFilename={mdf}";
+            string mdf = @"C:\repos\BrainWare\Api\data\BrainWare.mdf";
+            string connectionString =
+                $"Data Source=(LocalDb)\\MSSQLLocalDB;Initial Catalog=BrainWAre;Integrated Security=SSPI;AttachDBFilename={mdf}";
 
             _connection = new SqlConnection(connectionString);
 
@@ -20,8 +21,6 @@
 
         public DbDataReader ExecuteReader(string query)
         {
-           
-
             var sqlQuery = new SqlCommand(query, _connection);
 
             return sqlQuery.ExecuteReader();
@@ -33,6 +32,5 @@
 
             return sqlQuery.ExecuteNonQuery();
         }
-
     }
 }

@@ -1,12 +1,5 @@
-﻿using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Web;
-
-namespace Api.Models
+﻿namespace Api.Models
 {
-    using System.Security.AccessControl;
-
     public class Order
     {
         public int OrderId { get; set; }
@@ -18,7 +11,6 @@ namespace Api.Models
         public decimal OrderTotal { get; set; }
 
         public List<OrderProduct> OrderProducts { get; set; }
-
     }
 
 
@@ -29,11 +21,10 @@ namespace Api.Models
         public int ProductId { get; set; }
 
         public Product Product { get; set; }
-    
+
         public int Quantity { get; set; }
 
         public decimal Price { get; set; }
-
     }
 
     public class Product
