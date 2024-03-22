@@ -4,7 +4,7 @@
     using System.Data;
     using System.Data.Common;
 
-    public class OrderService
+    public class OrderService : IOrderService
     {
         public List<Order> GetOrdersForCompany(int CompanyId)
         {

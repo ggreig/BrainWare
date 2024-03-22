@@ -6,15 +6,13 @@
 
     [ApiController]
     [Route("api")]
-    public class OrderController : ControllerBase
+    public class OrderController(IOrderService inOrderService) : ControllerBase
     {
         [HttpGet]
         [Route("order/{id}")]
         public IEnumerable<Order> GetOrders(int id = 1)
         {
-            var data = new OrderService();
-
-            return data.GetOrdersForCompany(id);
+            return inOrderService.GetOrdersForCompany(id);
         }
     }
 }

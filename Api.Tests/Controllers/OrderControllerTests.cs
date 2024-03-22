@@ -2,6 +2,7 @@
 {
     using Api.Controllers;
     using FluentAssertions;
+    using Infrastructure;
     using Models;
 
     [TestFixture]
@@ -12,7 +13,7 @@
         public void GetOrders_ShouldSucceed()
         {
             // Arrange
-            var orderController = new OrderController();
+            var orderController = new OrderController(new OrderService());
 
             // Act
             IEnumerable<Order> result = orderController.GetOrders();
