@@ -1,6 +1,7 @@
 import { Component } from '@angular/core';
 import { CommonModule } from '@angular/common';
-import { HttpClient } from '@angular/common/http';
+import { Order } from '../orders-service/order';
+import { OrdersService } from '../orders-service/orders.service';
 
 @Component({
   selector: 'web-app-order-list',
@@ -10,12 +11,9 @@ import { HttpClient } from '@angular/common/http';
   styleUrl: './order-list.component.scss',
 })
 export class OrderListComponent {
-  orders: any[] = [];
+  orders: Order[] = [];
   
-  constructor(http: HttpClient) {
-    http.get<any>('/api/order/1').subscribe((orders) => {
-      this.orders = orders;
-    });
+  constructor(private ordersService: OrdersService) {
+    this.ordersService.getOrders().subscribe(orders => this.orders = orders);
   }
-
 }
