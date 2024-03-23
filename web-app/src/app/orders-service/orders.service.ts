@@ -6,12 +6,13 @@ import { Observable } from 'rxjs';
 @Injectable({
   providedIn: 'root'
 })
-export class OrdersService {
+export class OrdersService {    
+  public readonly url = '/api/order/1';
 
   constructor(private http: HttpClient) {
   }
-    
+
   public getOrders(): Observable<Order[]> {
-    return this.http.get<Order[]>('/api/order/1');
+    return this.http.get<Order[]>(this.url);
   }
 }
