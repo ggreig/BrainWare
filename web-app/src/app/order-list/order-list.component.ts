@@ -14,9 +14,10 @@ import { OrderDetailComponent } from '../order-detail/order-detail.component';
 export class OrderListComponent {
   orders: Order[] = [];
 
-  get companyName(): string {
-    // Default to "Your" if no company name is available.
-    return this.orders[0]?.companyName || "Your";
+  get ordersCaption(): string {
+    // Default to "Your" if no company name is available (e.g. while loading).
+    const possessiveTerm: string = this.orders[0]?.companyName || "Your";
+    return `${ possessiveTerm } Orders:`;
   }
   
   constructor(private ordersService: OrdersService) {
