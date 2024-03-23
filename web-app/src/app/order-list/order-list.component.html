@@ -1,5 +1,5 @@
 <table class="table">
-    <caption><h2>Your Orders:</h2></caption>
+    <caption><h2>{{ companyName }} Orders:</h2></caption>
     <tbody>
       <tr *ngFor="let order of orders">
         <web-app-order-detail [order]="order"></web-app-order-detail>

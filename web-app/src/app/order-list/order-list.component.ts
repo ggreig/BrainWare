@@ -13,6 +13,11 @@ import { OrderDetailComponent } from '../order-detail/order-detail.component';
 })
 export class OrderListComponent {
   orders: Order[] = [];
+
+  get companyName(): string {
+    // Default to "Your" if no company name is available.
+    return this.orders[0]?.companyName || "Your";
+  }
   
   constructor(private ordersService: OrdersService) {
     this.ordersService.getOrders().subscribe(orders => this.orders = orders);
