@@ -2,11 +2,12 @@ import { Component } from '@angular/core';
 import { CommonModule } from '@angular/common';
 import { Order } from '../orders-service/order';
 import { OrdersService } from '../orders-service/orders.service';
+import { OrderDetailComponent } from '../order-detail/order-detail.component';
 
 @Component({
   selector: 'web-app-order-list',
   standalone: true,
-  imports: [CommonModule],
+  imports: [CommonModule, OrderDetailComponent],
   templateUrl: './order-list.component.html',
   styleUrl: './order-list.component.scss',
 })

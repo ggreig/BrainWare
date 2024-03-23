@@ -1,7 +1,8 @@
 import { CommonModule } from '@angular/common';
-import { Component } from '@angular/core';
+import { Component, OnInit } from '@angular/core';
 import { RouterModule } from '@angular/router';
 import { OrderListComponent } from './order-list/order-list.component';
+import { Title } from '@angular/platform-browser';
 
 @Component({
   standalone: true,
@@ -10,6 +11,15 @@ import { OrderListComponent } from './order-list/order-list.component';
   templateUrl: './app.component.html',
   styleUrl: './app.component.scss',
 })
-export class AppComponent {
+export class AppComponent implements OnInit {
   year = new Date().getFullYear();
+  appTitle = "BrainWare";
+  pageTitle = "";
+
+  public constructor(private titleService: Title) {}
+
+  ngOnInit() {
+    this.pageTitle = this.appTitle + " Orders";  
+    this.titleService.setTitle(this.pageTitle);
+  }
 }
