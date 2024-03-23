@@ -21,6 +21,9 @@ export class OrderListComponent {
   }
   
   constructor(private ordersService: OrdersService) {
-    this.ordersService.getOrders().subscribe(orders => this.orders = orders);
+    this.ordersService.getOrders().subscribe({
+      next: (result: Order[]) => this.orders = result,
+      error: () => this.orders = []
+    });
   }
 }

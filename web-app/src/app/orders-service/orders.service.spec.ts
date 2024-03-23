@@ -2,6 +2,7 @@ import { TestBed } from '@angular/core/testing';
 import { OrdersService } from './orders.service';
 import { HttpClientTestingModule, HttpTestingController } from '@angular/common/http/testing';
 import { Order } from './order';
+import { fail } from 'assert';
 
 describe('OrdersService', () => {
   let service: OrdersService;
@@ -33,9 +34,10 @@ describe('OrdersService', () => {
   it('should GET from expected URL', () => {
 
     // Act
-    service.getOrders().subscribe(() => {
+    service.getOrders().subscribe({
       // Confirm that the expected mock response has been received.
-      (result: Order[]) => expect(result).toBe(mockOrder)
+      next: (result: Order[]) => expect(result).toBe(mockOrder),
+      error: () => fail("because a valid result is expected")
     })
 
     // Confirm that the service has made a single GET request to the expected URL.
@@ -47,10 +49,11 @@ describe('OrdersService', () => {
   })
 
   it('should return an empty result on 404', () => {
-    service.getOrders().subscribe(() => {
-      // Confirm that the result is an empty array.
-      (result: Order[]) => expect(result.length).toBe(0);
-    })
+    service.getOrders().subscribe({
+      // Confirm that an empty array has been received.
+      next: (result: Order[]) => expect(result.length).toBe(0),
+      error: () => fail("because a valid empty result is expected")
+    });
 
     // Confirm that the service has made a single GET request to the expected URL.
     const request = httpTestingController.expectOne(service.url);
