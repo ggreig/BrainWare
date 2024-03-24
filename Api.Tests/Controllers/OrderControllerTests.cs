@@ -2,11 +2,11 @@
 {
     using Api.Controllers;
     using FluentAssertions;
+    using FluentAssertions.Execution;
     using Infrastructure;
-    using Microsoft.Extensions.Configuration;
     using Models;
     using NSubstitute;
-
+                   
     [TestFixture]
     [TestOf(typeof(OrderController))]
     public class OrderControllerTests
@@ -15,18 +15,23 @@
         public void GetOrders_ShouldContainExpectedNumber()
         {
             // Arrange
-            var mockConfiguration = Substitute.For<IConfiguration>();
-            mockConfiguration.GetSection("ConnectionStrings")["DefaultConnection"] = "Data Source=LOCALHOST\\SQLEXPRESS;Initial Catalog=BrainWare;Integrated Security=SSPI;";
+            var database = Substitute.For<IDatabase>();
+            database.GetOrders(1).Returns(OrderTestData.singleOrder);
+            database.GetOrderDetails(1).Returns(OrderTestData.singleOrderItem);
             
-            var database = new Database(mockConfiguration);
             var orderService = new OrderService(database);
             var orderController = new OrderController(orderService);
 
             // Act
-            IEnumerable<Order> result = orderController.GetOrders();
+            List<Order> result = orderController.GetOrders(1).ToList();
 
             // Assert
-            result.Should().HaveCount(3, "because 3 orders have been placed");
+            using (new AssertionScope())
+            {
+                result.Should().ContainSingle("because 1 order has been placed");
+                result.First().OrderProducts.Should().ContainSingle("because 1 item was included")
+                    .Which.Product.Name.Should().Be("Test Product 1");
+            }
         }
     }
 }
