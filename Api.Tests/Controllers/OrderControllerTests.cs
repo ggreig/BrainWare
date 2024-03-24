@@ -12,12 +12,12 @@
     public class OrderControllerTests
     {
         [Test]
-        public void GetOrders_ShouldContainExpectedNumber()
+        public void GetOrders_WithSingleItem_ShouldContainExpectedItemOnly()
         {
             // Arrange
             var database = Substitute.For<IDatabase>();
-            database.GetOrders(1).Returns(OrderTestData.singleOrder);
-            database.GetOrderDetails(1).Returns(OrderTestData.singleOrderItem);
+            database.GetOrders(1).Returns(TestDataForOrder.Single);
+            database.GetOrderDetails(1).Returns(TestDataForOrderItem.Single);
             
             var orderService = new OrderService(database);
             var orderController = new OrderController(orderService);
