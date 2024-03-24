@@ -12,13 +12,9 @@
 
             foreach (Order order in orders)
             {
-                foreach (OrderProduct orderProduct in orderProducts)
+                foreach (OrderProduct orderProduct in orderProducts
+                             .Where(orderProduct => orderProduct.OrderId == order.OrderId))
                 {
-                    if (orderProduct.OrderId != order.OrderId)
-                    {
-                        continue;
-                    }
-
                     order.OrderProducts.Add(orderProduct);
                     order.OrderTotal += (orderProduct.Price * orderProduct.Quantity);
                 }
