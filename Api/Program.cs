@@ -12,6 +12,11 @@ builder.Services.AddSwaggerGen();
 builder.Services.AddScoped<IDatabase, Database>();
 builder.Services.AddScoped<IOrderService, OrderService>();
 
+IHostEnvironment env = builder.Environment;
+builder.Configuration
+    .AddJsonFile("appsettings.json", optional: false, reloadOnChange: true)
+    .AddJsonFile($"appsettings.{env.EnvironmentName}.json", true, true);
+
 WebApplication app = builder.Build();
 
 // Configure the HTTP request pipeline.

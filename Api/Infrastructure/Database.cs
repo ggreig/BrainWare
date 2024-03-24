@@ -9,9 +9,13 @@
     {
         private readonly SqlConnection _connection;
 
-        public Database()
+        public Database(IConfiguration configuration)
         {
-            var connectionString = "Data Source=LOCALHOST\\SQLEXPRESS;Initial Catalog=BrainWare;Integrated Security=SSPI";
+            // Get the connection string from appsettings.
+            var connectionString = configuration?.GetSection("ConnectionStrings")["DefaultConnection"];
+            
+            // Previous hard-coded connection strings left for ease of restoration.
+            //var connectionString = "Data Source=LOCALHOST;Initial Catalog=BrainWare;Integrated Security=SSPI";
             //string mdf = @"C:\repos\BrainWare\Api\data\BrainWare.mdf";
             //string connectionString =
             //    $"Data Source=(LocalDb)\\MSSQLLocalDB;Initial Catalog=BrainWAre;Integrated Security=SSPI;AttachDBFilename={mdf}";
