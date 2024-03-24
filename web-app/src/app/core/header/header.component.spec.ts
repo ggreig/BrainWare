@@ -18,4 +18,17 @@ describe('HeaderComponent', () => {
   it('should create', () => {
     expect(component).toBeTruthy();
   });
+  
+  it('should contain input text', () => {
+    const fixture = TestBed.createComponent(HeaderComponent);
+    component = fixture.componentInstance;
+    component.pageTitle = "Test Title";
+    component.strapLine = "A terribly exciting strapline";
+
+    fixture.detectChanges();
+
+    const compiled = fixture.nativeElement as HTMLElement;
+    expect(compiled.querySelector('h1')?.textContent).toContain("Test Title");
+    expect(compiled.querySelector('p')?.textContent).toContain("A terribly exciting strapline");
+  });
 });
