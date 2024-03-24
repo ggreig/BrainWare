@@ -5,8 +5,8 @@ import { CommonModule } from '@angular/common';
   selector: 'web-app-footer',
   standalone: true,
   imports: [CommonModule],
-  templateUrl: './zooter.component.html',
-  styleUrl: './zooter.component.scss',
+  templateUrl: './footer.component.html',
+  styleUrl: './footer.component.scss',
 })
 export class FooterComponent {
   year = new Date().getFullYear();
