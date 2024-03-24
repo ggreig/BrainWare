@@ -16,7 +16,7 @@ export class AppComponent implements OnInit {
   appTitle = "BrainWare";
   pageTitle = "";
   strapLine = "";
-  companyId = 2;
+  companyId = 1;
 
   public constructor(private titleService: Title) {}
 
