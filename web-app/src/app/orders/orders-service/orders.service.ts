@@ -8,12 +8,12 @@ import { Observable } from 'rxjs';
 })
 export class OrdersService {
   // TODO: Parameterise the ID.    
-  public readonly url = '/api/order/1';
+  public readonly url = '/api/order/';
 
   constructor(private http: HttpClient) {
   }
 
-  public getOrders(): Observable<Order[]> {
-    return this.http.get<Order[]>(this.url);
+  public getOrders(companyId: number): Observable<Order[]> {
+    return this.http.get<Order[]>(this.url + companyId.toString());
   }
 }

@@ -13,10 +13,10 @@ import { CoreModule } from './core/core.module';
   styleUrl: './app.component.scss',
 })
 export class AppComponent implements OnInit {
-  year = new Date().getFullYear();
   appTitle = "BrainWare";
   pageTitle = "";
   strapLine = "";
+  companyId = 2;
 
   public constructor(private titleService: Title) {}
 

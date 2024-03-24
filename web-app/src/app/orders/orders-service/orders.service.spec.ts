@@ -8,6 +8,7 @@ describe('OrdersService', () => {
   let service: OrdersService;
   let httpTestingController: HttpTestingController;
 
+  const mockCompanyId = 0;
   const mockOrder: Order[] = [
     { orderId: 1, companyName: "Test Company", description: "Test Order", orderTotal: 10, orderProducts: [] }
   ];
@@ -34,14 +35,14 @@ describe('OrdersService', () => {
   it('should GET from expected URL', () => {
 
     // Act
-    service.getOrders().subscribe({
+    service.getOrders(mockCompanyId).subscribe({
       // Confirm that the expected mock response has been received.
       next: (result: Order[]) => expect(result).toBe(mockOrder),
       error: () => fail("because a valid result is expected")
     })
 
     // Confirm that the service has made a single GET request to the expected URL.
-    const request = httpTestingController.expectOne(service.url);
+    const request = httpTestingController.expectOne(service.url + mockCompanyId);
     expect(request.request.method).toBe('GET');
 
     // Provide the request with a mock response.
@@ -49,14 +50,14 @@ describe('OrdersService', () => {
   })
 
   it('should return an empty result on 404', () => {
-    service.getOrders().subscribe({
+    service.getOrders(0).subscribe({
       // Confirm that an empty array has been received.
       next: (result: Order[]) => expect(result.length).toBe(0),
       error: () => fail("because a valid empty result is expected")
     });
 
     // Confirm that the service has made a single GET request to the expected URL.
-    const request = httpTestingController.expectOne(service.url);
+    const request = httpTestingController.expectOne(service.url + mockCompanyId);
 
     // Return a 404 to check how it's handled.
     request.flush("Nothing found", { status: 404, statusText: "Not Found"});

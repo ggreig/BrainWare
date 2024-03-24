@@ -1,4 +1,4 @@
-import { Component } from '@angular/core';
+import { Component, Input, OnInit } from '@angular/core';
 import { CommonModule } from '@angular/common';
 import { Order } from '../order-models/order';
 import { OrdersService } from '../orders-service/orders.service';
@@ -11,7 +11,8 @@ import { OrderDetailComponent } from '../order-detail/order-detail.component';
   templateUrl: './order-list.component.html',
   styleUrl: './order-list.component.scss',
 })
-export class OrderListComponent {
+export class OrderListComponent implements OnInit {
+  @Input() companyId = 1;
   orders: Order[] = [];
 
   get ordersCaption(): string {
@@ -21,7 +22,10 @@ export class OrderListComponent {
   }
   
   constructor(private ordersService: OrdersService) {
-    this.ordersService.getOrders().subscribe({
+  }
+
+  ngOnInit(): void {
+    this.ordersService.getOrders(this.companyId).subscribe({
       next: (result: Order[]) => this.orders = result,
       error: () => this.orders = []
     });
