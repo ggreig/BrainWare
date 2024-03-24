@@ -1,8 +1,5 @@
 <div class="container body-content">
-  <div class="jumbotron">
-    <h1>{{ pageTitle }}</h1>
-    <p class="lead">This is the BrainWare orders page. Welcome!</p>
-  </div>
+  <web-app-header [pageTitle]="pageTitle" [strapLine]="strapLine"></web-app-header>
   <web-app-order-list></web-app-order-list>
   <hr />
   <web-app-footer></web-app-footer>

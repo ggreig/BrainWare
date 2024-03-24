@@ -16,11 +16,13 @@ export class AppComponent implements OnInit {
   year = new Date().getFullYear();
   appTitle = "BrainWare";
   pageTitle = "";
+  strapLine = "";
 
   public constructor(private titleService: Title) {}
 
   ngOnInit() {
-    this.pageTitle = this.appTitle + " Orders";  
+    this.pageTitle = `${ this.appTitle} Orders`;
+    this.strapLine = `This is the ${ this.appTitle} orders page. Welcome!`;
     this.titleService.setTitle(this.pageTitle);
   }
 }
