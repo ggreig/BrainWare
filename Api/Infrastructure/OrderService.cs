@@ -1,78 +1,30 @@
 ﻿namespace Api.Infrastructure
 {
     using Models;
-    using System.Data;
-    using System.Data.Common;
 
     public class OrderService(IDatabase database) : IOrderService
     {
-        public List<Order> GetOrdersForCompany(int CompanyId)
+        public List<Order> GetOrdersForCompany(int companyId)
         {
-            // BUG: Not using the CompanyId provided as a parameter.
-            // TODO: Convert to use parameterised stored procedure(s) to avoid SQL injection
-            
             // Get the orders
-            string sql1 =
-                "SELECT c.name, o.description, o.order_id FROM company c INNER JOIN [order] o on c.company_id=o.company_id";
+            List<Order> orders = database.GetOrders(companyId);
+            List<OrderProduct> orderProducts = database.GetOrderDetails(companyId);
 
-            DbDataReader reader1 = database.ExecuteReader(sql1);
-
-            var values = new List<Order>();
-
-            while (reader1.Read())
+            foreach (Order order in orders)
             {
-                IDataRecord record1 = reader1;
-
-                values.Add(new Order
+                foreach (OrderProduct orderProduct in orderProducts)
                 {
-                    CompanyName = record1.GetString(0),
-                    Description = record1.GetString(1),
-                    OrderId = record1.GetInt32(2),
-                    OrderProducts = new List<OrderProduct>()
-                });
-            }
-
-            reader1.Close();
-
-            //Get the order products
-            string sql2 =
-                "SELECT op.price, op.order_id, op.product_id, op.quantity, p.name, p.price FROM orderproduct op INNER JOIN product p on op.product_id=p.product_id";
-
-            DbDataReader reader2 = database.ExecuteReader(sql2);
-
-            var values2 = new List<OrderProduct>();
-
-            while (reader2.Read())
-            {
-                IDataRecord record2 = reader2;
-
-                values2.Add(new OrderProduct
-                {
-                    OrderId = record2.GetInt32(1),
-                    ProductId = record2.GetInt32(2),
-                    Price = record2.GetDecimal(0),
-                    Quantity = record2.GetInt32(3),
-                    Product = new Product { Name = record2.GetString(4), Price = record2.GetDecimal(5) }
-                });
-            }
-
-            reader2.Close();
-
-            foreach (Order order in values)
-            {
-                foreach (OrderProduct orderproduct in values2)
-                {
-                    if (orderproduct.OrderId != order.OrderId)
+                    if (orderProduct.OrderId != order.OrderId)
                     {
                         continue;
                     }
 
-                    order.OrderProducts.Add(orderproduct);
-                    order.OrderTotal = order.OrderTotal + (orderproduct.Price * orderproduct.Quantity);
+                    order.OrderProducts.Add(orderProduct);
+                    order.OrderTotal += (orderProduct.Price * orderProduct.Quantity);
                 }
             }
 
-            return values;
+            return orders;
         }
     }
 }

@@ -65,6 +65,8 @@
     <Build Include="Tables\product.sql" />
     <Build Include="Tables\order.sql" />
     <Build Include="Tables\orderproduct.sql" />
+    <Build Include="Stored Procedures\getcompanyorders.sql" />
+    <Build Include="Stored Procedures\getorderdetails.sql" />
   </ItemGroup>
   <ItemGroup>
     <RefactorLog Include="ProjectDB.refactorlog" />

@@ -1,10 +1,10 @@
 ﻿namespace Api.Infrastructure
 {
-    using System.Data.Common;
+    using Models;
 
     public interface IDatabase
     {
-        DbDataReader ExecuteReader(string query);
-        int ExecuteNonQuery(string query);
+        List<Order> GetOrders(int companyId);
+        List<OrderProduct> GetOrderDetails(int companyId);
     }
 }

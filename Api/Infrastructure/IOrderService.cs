@@ -4,6 +4,6 @@
 
     public interface IOrderService
     {
-        List<Order> GetOrdersForCompany(int CompanyId);
+        List<Order> GetOrdersForCompany(int companyId);
     }
 }

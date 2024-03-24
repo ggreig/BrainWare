@@ -1,5 +1,7 @@
 ﻿namespace Api.Infrastructure
 {
+    using Models;
+    using System.Data;
     using System.Data.Common;
     using System.Data.SqlClient;
 
@@ -9,28 +11,67 @@
 
         public Database()
         {
-            // var connectionString = "Data Source=LOCALHOST;Initial Catalog=BrainWare;Integrated Security=SSPI";
-            string mdf = @"C:\repos\BrainWare\Api\data\BrainWare.mdf";
-            string connectionString =
-                $"Data Source=(LocalDb)\\MSSQLLocalDB;Initial Catalog=BrainWAre;Integrated Security=SSPI;AttachDBFilename={mdf}";
+            var connectionString = "Data Source=LOCALHOST\\SQLEXPRESS;Initial Catalog=BrainWare;Integrated Security=SSPI";
+            //string mdf = @"C:\repos\BrainWare\Api\data\BrainWare.mdf";
+            //string connectionString =
+            //    $"Data Source=(LocalDb)\\MSSQLLocalDB;Initial Catalog=BrainWAre;Integrated Security=SSPI;AttachDBFilename={mdf}";
 
             _connection = new SqlConnection(connectionString);
 
             _connection.Open();
         }
 
-        public DbDataReader ExecuteReader(string query)
+        public List<Order> GetOrders(int companyId)
         {
-            var sqlQuery = new SqlCommand(query, _connection);
+            var orders = new List<Order>();
 
-            return sqlQuery.ExecuteReader();
+            DbDataReader dataReader = ExecuteStoredProcedure("getcompanyorders", companyId);
+            while (dataReader.Read())
+            {
+                IDataRecord record1 = dataReader;
+
+                orders.Add(new Order
+                {
+                    CompanyName = record1.GetString(0),
+                    Description = record1.GetString(1),
+                    OrderId = record1.GetInt32(2),
+                    OrderProducts = new List<OrderProduct>()
+                });
+            }
+            dataReader.Close();
+
+            return orders;
         }
 
-        public int ExecuteNonQuery(string query)
+        public List<OrderProduct> GetOrderDetails(int companyId)
         {
-            var sqlQuery = new SqlCommand(query, _connection);
+            var orderProducts = new List<OrderProduct>();
 
-            return sqlQuery.ExecuteNonQuery();
+            DbDataReader dataReader = ExecuteStoredProcedure("getorderdetails", companyId);
+            while (dataReader.Read())
+            {
+                IDataRecord record2 = dataReader;
+
+                orderProducts.Add(new OrderProduct
+                {
+                    OrderId = record2.GetInt32(1),
+                    ProductId = record2.GetInt32(2),
+                    Price = record2.GetDecimal(0),
+                    Quantity = record2.GetInt32(3),
+                    Product = new Product { Name = record2.GetString(4), Price = record2.GetDecimal(5) }
+                });
+            }
+            dataReader.Close();
+
+            return orderProducts;
+        }
+
+        private DbDataReader ExecuteStoredProcedure(string name, int companyId)
+        {
+            var sqlQuery = new SqlCommand(name, _connection);
+            sqlQuery.CommandType = CommandType.StoredProcedure;
+            sqlQuery.Parameters.Add("@companyId", SqlDbType.Int).Value = companyId;
+            return sqlQuery.ExecuteReader();
         }
     }
 }
