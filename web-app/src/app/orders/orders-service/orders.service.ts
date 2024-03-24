@@ -6,8 +6,7 @@ import { Observable } from 'rxjs';
 @Injectable({
   providedIn: 'root'
 })
-export class OrdersService {
-  // TODO: Parameterise the ID.    
+export class OrdersService { 
   public readonly url = '/api/order/';
 
   constructor(private http: HttpClient) {
