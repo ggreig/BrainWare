@@ -2,9 +2,9 @@
 {
     using Models;
 
-    public class OrderService(IDatabase database) : IOrderService
+    internal class OrderService(IDatabase database) : IOrderService
     {
-        public List<Order> GetOrdersForCompany(int companyId)
+        public IEnumerable<Order> GetOrdersForCompany(int companyId)
         {
             // Get the orders
             List<Order> orders = database.GetOrders(companyId);

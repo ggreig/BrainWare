@@ -3,7 +3,5 @@
 		<LangVersion>latest</LangVersion>
 		<TreatWarningsAsErrors>true</TreatWarningsAsErrors>
 		<WarningLevel>4</WarningLevel>
-		<!-- Not ready to deal with existing CS8618 yet, but want other warnings to break build. -->
-		<WarningsNotAsErrors>CS8618</WarningsNotAsErrors>
 	</PropertyGroup>
 </Project>

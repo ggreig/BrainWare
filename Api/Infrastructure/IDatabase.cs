@@ -2,7 +2,7 @@
 {
     using Models;
 
-    public interface IDatabase
+    internal interface IDatabase
     {
         List<Order> GetOrders(int companyId);
         List<OrderProduct> GetOrderDetails(int companyId);
