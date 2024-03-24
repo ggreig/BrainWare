@@ -3,10 +3,11 @@ import { Component, OnInit } from '@angular/core';
 import { RouterModule } from '@angular/router';
 import { OrdersModule } from './orders/orders.module';
 import { Title } from '@angular/platform-browser';
+import { CoreModule } from './core/core.module';
 
 @Component({
   standalone: true,
-  imports: [CommonModule, RouterModule, OrdersModule],
+  imports: [CommonModule, RouterModule, CoreModule, OrdersModule],
   selector: 'web-app-root',
   templateUrl: './app.component.html',
   styleUrl: './app.component.scss',
