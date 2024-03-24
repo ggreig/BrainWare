@@ -1,6 +1,6 @@
 import { Component } from '@angular/core';
 import { CommonModule } from '@angular/common';
-import { Order } from '../orders-service/order';
+import { Order } from '../order-models/order';
 import { OrdersService } from '../orders-service/orders.service';
 import { OrderDetailComponent } from '../order-detail/order-detail.component';
 

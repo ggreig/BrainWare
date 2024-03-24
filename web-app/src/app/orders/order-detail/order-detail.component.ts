@@ -1,6 +1,6 @@
 import { Component, Input } from '@angular/core';
 import { CommonModule } from '@angular/common';
-import { Order } from '../orders-service/order';
+import { Order } from '../order-models/order';
 
 @Component({
   selector: 'web-app-order-detail',
