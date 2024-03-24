@@ -13,12 +13,17 @@
         {
             // Get the connection string from appsettings.
             var connectionString = configuration?.GetSection("ConnectionStrings")["DefaultConnection"];
-            
-            // Previous hard-coded connection strings left for ease of restoration.
+
+#pragma warning disable S125 // Sections of code should not be commented out
+            //
+            // Usually commented-out code should be removed, but we've left these lines because they
+            // contain previously hard-coded connection strings in case they need to be restored.
+            //
             //var connectionString = "Data Source=LOCALHOST;Initial Catalog=BrainWare;Integrated Security=SSPI";
             //string mdf = @"C:\repos\BrainWare\Api\data\BrainWare.mdf";
             //string connectionString =
             //    $"Data Source=(LocalDb)\\MSSQLLocalDB;Initial Catalog=BrainWAre;Integrated Security=SSPI;AttachDBFilename={mdf}";
+#pragma warning restore S125 // Sections of code should not be commented out
 
             _connection = new SqlConnection(connectionString);
 

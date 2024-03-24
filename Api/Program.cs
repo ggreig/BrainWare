@@ -21,7 +21,9 @@ builder.Services.AddSwaggerGen(options =>
             {
                 Name = "Gavin Greig",
                 Email="example@example.com",
+#pragma warning disable S1075 // URIs should not be hardcoded - this is a valid usage of a hard-coded URL.
                 Url = new Uri("http://ggreig.com/")
+#pragma warning restore S1075 // URIs should not be hardcoded
             }
         }
     );
@@ -48,7 +50,11 @@ if (app.Environment.IsDevelopment())
     app.UseSwaggerUI();
 }
 
-// app.UseHttpsRedirection();
+#pragma warning disable S125 // Sections of code should not be commented out
+// Enabling the following line will enable HTTPS redirection for the API;
+// Left disabled because discovered late and didn't address running the web app with SSL.
+    // app.UseHttpsRedirection();
+#pragma warning restore S125 // Sections of code should not be commented out
 
 app.UseAuthorization();
 

@@ -29,7 +29,7 @@
             using (new AssertionScope())
             {
                 result.Should().ContainSingle("because 1 order has been placed");
-                result.First().OrderProducts.Should().ContainSingle("because 1 item was included")
+                result[0].OrderProducts.Should().ContainSingle("because 1 item was included")
                     .Which.Product.Name.Should().Be("Test Product 1");
             }
         }
