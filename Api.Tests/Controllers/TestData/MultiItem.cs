@@ -1,8 +1,8 @@
-namespace Api.Tests.Controllers
+namespace Api.Tests.Controllers.TestData
 {
     using Models;
 
-    public static class TestDataForOrderItem
+    public static class MultiItem
     {
         private static readonly OrderProduct order1Item1 = new()
         {
@@ -22,7 +22,15 @@ namespace Api.Tests.Controllers
             Price = 20
         };
 
-        public static List<OrderProduct> Single { get; } = [order1Item1];
-        public static List<OrderProduct> Multi { get; } = [order1Item1, order1Item2];
+        private static readonly OrderProduct order2Item1 = new()
+        {
+            OrderId = 2,
+            ProductId = 3,
+            Product = new Product { Name = "Test Product 3", Price = 30 },
+            Quantity = 1,
+            Price = 30
+        };
+
+        public static List<OrderProduct> GetItems() => [order1Item1, order1Item2, order2Item1];
     }
 }

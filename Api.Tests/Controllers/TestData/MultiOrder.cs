@@ -1,8 +1,8 @@
-namespace Api.Tests.Controllers
+namespace Api.Tests.Controllers.TestData
 {
     using Models;
 
-    public static class TestDataForOrder
+    public static class MultiOrder
     {
         private static readonly Order order1 = new()
         {
@@ -22,7 +22,6 @@ namespace Api.Tests.Controllers
             OrderTotal = 0
         };
 
-        public static List<Order> Single { get; } = [order1];
-        public static List<Order> Multi { get; } = [order1, order2];
+        public static List<Order> GetOrders() => [order1, order2];
     }
 }
